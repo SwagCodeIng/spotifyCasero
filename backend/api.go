@@ -41,14 +41,12 @@ func getSong(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
       defer session.Close()
 
       c := session.DB("SpotiCloneTest").C("Songs")
-      result := Song{}
-            err = c.Find(bson.M{"name": "Wasted Years"}).One(&result) //Hardcodeo para la query de cierto artista
+      var songs []Song
+          err = c.Find(bson.M{"name": bson.RegEx{"was", "i"}}).All(&songs)
+
             if err != nil {
                     log.Fatal(err)
             }
-
-      var songs = []Song {}
-      songs = append(songs, result)
       data, err := json.Marshal(songs)
       if err != nil {
           fmt.Println(err)
@@ -56,6 +54,30 @@ func getSong(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
       }
       fmt.Fprint(w, string(data))
 }
+
+func getAllSongs(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
+      fmt.Println("Invocacion de getAllSong")
+      session, err := mgo.Dial("localhost:27017")
+      if err != nil {
+        panic(err)
+      }
+      defer session.Close()
+
+      c := session.DB("SpotiCloneTest").C("Songs")
+      var songs []Song
+        err = c.Find(nil).All(&songs)
+
+          if err != nil {
+                  log.Fatal(err)
+                }
+                data, err := json.Marshal(songs)
+                if err != nil {
+                  fmt.Println(err)
+                  return
+                }
+                fmt.Fprint(w, string(data))
+
+  }
 
 func getArtist(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
       fmt.Println("Invocacion de getArtist")
@@ -67,14 +89,11 @@ func getArtist(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
       defer session.Close()
 
       c := session.DB("SpotiCloneTest").C("Artists")
-      result := Artist{}
-            err = c.Find(bson.M{"name": "Post Malone"}).One(&result) //Hardcodeo para la query de cierto artista
+      var artists []Artist
+            err = c.Find(bson.M{"name": bson.RegEx{"Post Malone", "i"}}).All(&artists) //Hardcodeo para la query de cierto artista
             if err != nil {
                     log.Fatal(err)
             }
-
-      var artists = []Artist {}
-      artists = append(artists, result)
       data, err := json.Marshal(artists)
       if err != nil {
           fmt.Println(err)
@@ -82,6 +101,30 @@ func getArtist(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
       }
       fmt.Fprint(w, string(data))
 }
+
+func getAllArtists(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
+      fmt.Println("Invocacion de getAllArtists")
+      session, err := mgo.Dial("localhost:27017")
+      if err != nil {
+        panic(err)
+      }
+      defer session.Close()
+
+      c := session.DB("SpotiCloneTest").C("Artists")
+      var artists []Artist
+        err = c.Find(nil).All(&artists)
+
+          if err != nil {
+                  log.Fatal(err)
+                }
+                data, err := json.Marshal(artists)
+                if err != nil {
+                  fmt.Println(err)
+                  return
+                }
+                fmt.Fprint(w, string(data))
+
+  }
 
 func getAlbum(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
       fmt.Println("Invocacion de getAlbum")
@@ -93,14 +136,12 @@ func getAlbum(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
       defer session.Close()
 
       c := session.DB("SpotiCloneTest").C("Albums")
-      result := Album{}
-            err = c.Find(bson.M{"name": "Stoney"}).One(&result) //Hardcodeo para la query de cierto artista
+      var albums []Album
+            err = c.Find(bson.M{"name": bson.RegEx{"ston", "i"}}).All(&albums)
             if err != nil {
                     log.Fatal(err)
             }
 
-      var albums = []Album {}
-      albums = append(albums, result)
       data, err := json.Marshal(albums)
       if err != nil {
           fmt.Println(err)
@@ -108,6 +149,30 @@ func getAlbum(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
       }
       fmt.Fprint(w, string(data))
 }
+
+func getAllAlbums(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
+      fmt.Println("Invocacion de getAllAlbums")
+      session, err := mgo.Dial("localhost:27017")
+      if err != nil {
+        panic(err)
+      }
+      defer session.Close()
+
+      c := session.DB("SpotiCloneTest").C("Albums")
+      var albums []Album
+        err = c.Find(nil).All(&albums)
+
+          if err != nil {
+                  log.Fatal(err)
+                }
+                data, err := json.Marshal(albums)
+                if err != nil {
+                  fmt.Println(err)
+                  return
+                }
+                fmt.Fprint(w, string(data))
+  }
+
 
 func main() {
 
@@ -118,24 +183,38 @@ func main() {
     panic(err)
   }
   defer session.Close()
+
+  //El codigo que se encuentra dentro de las barras generadas con '/' pegados juntos (como la que est abajo
+  //de este comentario es codigo completamente TEMPORAL y de PRUEBA mientras Mayo desarrolla la BD real)
   ////////////////////////////////////////////////////////////////////////////////////////////
 
   c := session.DB("SpotiCloneTest").C("Songs")
   fmt.Println("Collection: ",c)
   err = c.Insert(&Song{"", "0.0", "Wasted Years", "Iron Maiden", "Caught Somewhere In Time", "1982"},
-	               &Song{"", "0.0", "The Number Of The Beast", "Iron Maiden", "The Number Of The Beast", "1986"})
+	               &Song{"", "0.0", "The Number Of The Beast", "Iron Maiden", "The Number Of The Beast", "1986"},
+                 &Song{"", "0.0", "Wasting Love", "Iron Maiden", "Fear Of The Dark", "1990"})
   if err != nil { //check why != nil and not == si se supone que tiene algo -----
     log.Fatal(err)
   }
   result := Song{}
-        err = c.Find(bson.M{"name": "Wasted Years"}).One(&result)
+  var songs []Song
+        err = c.Find(bson.M{"name": bson.RegEx{"was", "i"}}).All(&songs)
         if err != nil {
                 log.Fatal(err)
         }
+        fmt.Println("------------------------------------------------------debug1: ")
+        fmt.Println(result)
         fmt.Println("ID:", result.Id.Hex(), "InitTime:", result.InitTime, "Name:", result.Name, "Artist:",
         result.Artist, "Album:", result.Album, "Year:", result.Year)
+        fmt.Printf("finded songs %v\n")
+        for _, song := range songs {
+          fmt.Println("ID:", song.Id.Hex(), "InitTime:", song.InitTime, "Name:", song.Name, "Artist:",
+          song.Artist, "Album:", song.Album, "Year:", song.Year)
+        }
+        fmt.Println("------------------------------------------------------debug1: ")
 
-    ////////////////////////////////////////////////////////////////////////////////////////////
+
+    //-----------------------------------------------------------------------------------------------------------
 
     c1 := session.DB("SpotiCloneTest").C("Artists")
     fmt.Println("Collection: ",c1)
@@ -148,7 +227,7 @@ func main() {
         }
         fmt.Println("ID:", result1.Id.Hex(), "Name:", result1.Name)
 
-   ///////////////////////////////////////////////////////////////////////////////////////////
+   //-----------------------------------------------------------------------------------------------------------
 
    c2 := session.DB("SpotiCloneTest").C("Albums")
    fmt.Println("Collection: ",c2)
@@ -171,6 +250,9 @@ func main() {
   router.GET("/getSong", getSong)
   router.GET("/getArtist", getArtist)
   router.GET("/getAlbum", getAlbum)
+  router.GET("/getAllSongs", getAllSongs)
+  router.GET("/getAllArtists", getAllArtists)
+  router.GET("/getAllAlbums", getAllAlbums)
 
   log.Fatal(http.ListenAndServe(":8080", router))
 
