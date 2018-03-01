@@ -1,0 +1,24 @@
+{
+	"idArtista": ObjectId("5a97ba0474b9fc13ef2c42d3"),
+	"albumTitle": "Yellow Submarine",
+	"releaseDate": "January 17, 1969",
+	"artworkPath": "/Users/ricardomayosilva/Desktop/Music/The Beatles - Yellow Submarine/YellowSubmarine.jpg"
+}
+{
+	"idArtista": ObjectId("5a97ba0474b9fc13ef2c42d3"),
+	"albumTitle": "Magical Mystery Tour",
+	"releaseDate": "December 8, 1967",
+	"artworkPath": "/Users/ricardomayosilva/Desktop/Music/The Beatles - Magical Mistery Tour/MagicalMysteryTourjpg"
+}
+{
+	"idArtista": ObjectId("5a97ba0474b9fc13ef2c42d4"),
+	"albumTitle": "Polygondwanaland",
+	"releaseDate": "November 17, 2017",
+	"artworkPath": "/Users/ricardomayosilva/Desktop/Music/King Gizzard & The Lizard Wizard - Polygondwanaland/cover.jpg"
+}
+{
+	"idArtista": ObjectId("5a97ba0474b9fc13ef2c42d2"),
+	"albumTitle": "Pacifisticuffs",
+	"releaseDate": "December 8, 2017",
+	"artworkPath": "/Users/ricardomayosilva/Desktop/Music/Diablo Swing Orchestra - Pacifisticuffs/cover.jpg"
+}

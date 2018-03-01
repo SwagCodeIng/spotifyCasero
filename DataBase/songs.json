@@ -1,0 +1,61 @@
+{
+	"idArtista": ObjectId("5a97ba0474b9fc13ef2c42d3"),
+	"idAlbum": ObjectId("5a97bc0874b9fc13ef2c42f1"),
+	"songName": "Hey Bulldog",
+	"duration": "3:11",
+	"FilePath": "/Users/ricardomayosilva/Desktop/Music/The Beatles - Yellow Submarine/Hey Bulldog.mp3",
+	"genres": 
+	[
+		{
+			"idGenre": ObjectId("5a97b8f774b9fc13ef2c42b7")
+		}
+	] 
+}
+{
+	"idArtista": ObjectId("5a97ba0474b9fc13ef2c42d3"),
+	"idAlbum": ObjectId("5a97bc0874b9fc13ef2c42ee"),
+	"songName": "The Fool On The Hill",
+	"duration": "2:59",
+	"FilePath": "/Users/ricardomayosilva/Desktop/Music/The Beatles - Magical Mistery Tour/.mp3",
+	"genres": 
+	[
+		{
+			"idGenre": ObjectId("5a97b8f774b9fc13ef2c42ba")
+		},
+		{
+			"idGenre": ObjectId("5a97b8f774b9fc13ef2c42b3")
+		}
+	] 
+}
+{
+	"idArtista": ObjectId("5a97ba0474b9fc13ef2c42d4"),
+	"idAlbum": ObjectId("5a97bc0874b9fc13ef2c42f0"),
+	"songName": "Crumbling Castle",
+	"duration": "10:44",
+	"FilePath": "/Users/ricardomayosilva/Desktop/Music/King Gizzard & The Lizard Wizard - Polygondwanaland/Crumbling Castle.mp3",
+	"genres": 
+	[
+		{
+			"idGenre": ObjectId("5a97b8f774b9fc13ef2c42b2")
+		},
+		{
+			"idGenre": ObjectId("5a97b8f774b9fc13ef2c42bc")
+		}
+	] 
+}
+{
+	"idArtista": ObjectId("5a97ba0474b9fc13ef2c42d2"),
+	"idAlbum": ObjectId("5a97bc0874b9fc13ef2c42ef"),
+	"songName": "Karma Bonfire",
+	"duration": "4:15",
+	"FilePath": "/Users/ricardomayosilva/Desktop/Music/Diablo Swing Orchestra - Pacifisticuffs/Karma Bonfire.mp3",
+	"genres": 
+	[
+		{
+			"idGenre": ObjectId("5a97b8f774b9fc13ef2c42b5")
+		},
+		{
+			"idGenre": ObjectId("5a97b8f774b9fc13ef2c42bb")		
+		}
+	] 
+}

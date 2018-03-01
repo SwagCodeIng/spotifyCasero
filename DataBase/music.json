@@ -1,0 +1,81 @@
+{
+	"artists":
+	[
+		{
+			"artistName": "The Beatles",
+			"albums": 
+			[
+				{
+					"albumTitle": "Yellow Submarine",
+					"releaseDate": "January 17, 1969",
+					"artworkPath": "/Users/ricardomayosilva/Desktop/Music/The Beatles - Yellow Submarine/YellowSubmarine.jpg",
+					"songs": 
+					[
+						{
+							"songName": "Hey Bulldog",
+							"duration": "3:11",
+							"FilePath": "/Users/ricardomayosilva/Desktop/Music/The Beatles - Yellow Submarine/Hey Bulldog.mp3",
+							"genres": [
+								{
+									"genreName": "Hard Rock"
+								}
+							] 
+						}
+					] 
+				},
+				{
+					"albumTitle": "Magical Mystery Tour",
+					"releaseDate": "December 8, 1967",
+					"artworkPath": "/Users/ricardomayosilva/Desktop/Music/The Beatles - Magical Mistery Tour/MagicalMysteryTourjpg",
+					"songs": 
+					[
+						{
+							"songName": "The Fool On The Hill",
+							"duration": "2:59",
+							"FilePath": "/Users/ricardomayosilva/Desktop/Music/The Beatles - Magical Mistery Tour/.mp3",
+							"genres": [
+								{
+									"genreName": "Baroque Pop"
+								}
+							] 
+						}
+					] 
+				}
+			] 
+		},
+		{
+			"artistName": "King Gizzard & The Lizard Wizard",
+			"albums": 
+			[
+				{
+					"albumTitle": "Polygondwanaland",
+					"releaseDate": "17 November, 2017",
+					"artworkPath": "/Users/ricardomayosilva/Desktop/Music/King Gizzard & The Lizard Wizard - Polygondwanaland/cover.jpg",
+					"songs": 
+					[
+						{
+							"songName": "Crumbling Castle",
+							"duration": "10:44",
+							"FilePath": "/Users/ricardomayosilva/Desktop/Music/King Gizzard & The Lizard Wizard - Polygondwanaland/Crumbling Castle.mp3",
+							"genres": [
+								{
+									"genreName": "Progressive Rock"
+								},
+								{
+									"genreName": "Acid Rock"
+								}
+							] 
+						}
+					] 
+				}
+			] 
+		}
+	] 
+}
+
+
+
+
+
+
+
