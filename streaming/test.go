@@ -8,7 +8,14 @@ import (
   "log"
   "io"
   "github.com/mewkiz/flac"
+  "encoding/json"
 )
+
+type songResponse struct {
+  Frame int
+  SubFrame int
+  Frequencies []int32
+}
 
 func main(){
   stream, err := flac.Open("flacFiles/stairway-to-heaven.flac")
@@ -17,48 +24,31 @@ func main(){
   }
   defer stream.Close()
 
-  // fmt.Print(stream.Info)
-  //
-  // var b bytes.Buffer
-  // writer := bufio.NewWriter(&b)
-  // fmt.Print(writer)
-
-
-  // flac.Encode(writer, stream)
-
-  // fmt.Print(writer)
-  // fmt.Print(stream)
 
 
   // md5sum := md5.New()
-  for{
-    frame, err := stream.ParseNext()
-    if err != nil{
-      if err == io.EOF {
-        break
+
+
+    for{
+      frame, err := stream.ParseNext()
+      if err != nil{
+        if err == io.EOF {
+          break
+        }//end if
+        log.Fatal(err)
       }//end if
-      log.Fatal(err)
-    }//end if
-    // frame.Hash(md5sum)
-
-    // fmt.Print(frame)
-
-    if frame.Num <3 {
-      fmt.Printf("frame %d\n", frame.Num)
-      for i, subframe := range frame.Subframes{
-        fmt.Printf(" subframe %d\n", i)
-        fmt.Println("////////////////////////////////////")
-        fmt.Println(subframe.NSamples)
-        for j, sample := range subframe.Samples {
-          if j >= 50{
-            break
-          }//end if
-          fmt.Printf("   sample %d: %v\n", j, sample)
-
+      // if frame.Num <1 {
+        fmt.Printf("frame %d\n", frame.Num)
+        for i, subframe := range frame.Subframes{
+        sResponse := &songResponse{
+            Frame: int(frame.Num),
+            SubFrame: i,
+            Frequencies: subframe.Samples}
+        fResponse, _  := json.Marshal(sResponse)
+        fmt.Print(string(fResponse))
         }//end for
-      }//end for
-    }//end if
-  }//end for
+      //}//end if
+    }//end for
   fmt.Println()
 
 
