@@ -3,12 +3,15 @@ package main
 
 import (
       "fmt"
+      // "github.com/go-mgo/mgo"
       "github.com/julienschmidt/httprouter"
       "net/http"
       "log"
       "encoding/json"
-      "gopkg.in/mgo.v2"
-      "gopkg.in/mgo.v2/bson"
+      "github.com/globalsign/mgo"
+      "github.com/globalsign/mgo/bson"
+      // "gopkg.in/mgo.v2"
+      // "gopkg.in/mgo.v2/bson"
 )
 
 type Song struct {
