@@ -1,4 +1,4 @@
-//Asi o separar los .go en varios (?)
+
 package main
 
 import (
@@ -7,8 +7,8 @@ import (
       "net/http"
       "log"
       "encoding/json"
-      "github.com/globalsign/mgo"
-      "github.com/globalsign/mgo/bson"
+      "github.com/globalsign/mgo"     //nueva libraria que se incluyo para remplazar la anterior
+      "github.com/globalsign/mgo/bson" //nueva libraria que se incluyo para remplazar la anterior
 )
 
 type Song struct {
