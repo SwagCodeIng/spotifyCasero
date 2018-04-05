@@ -1,14 +1,17 @@
-
+//Asi o separar los .go en varios (?)
 package main
 
 import (
       "fmt"
+      // "github.com/go-mgo/mgo"
       "github.com/julienschmidt/httprouter"
       "net/http"
       "log"
       "encoding/json"
-      "github.com/globalsign/mgo"     //nueva libraria que se incluyo para remplazar la anterior
-      "github.com/globalsign/mgo/bson" //nueva libraria que se incluyo para remplazar la anterior
+      "github.com/globalsign/mgo"
+      "github.com/globalsign/mgo/bson"
+      // "gopkg.in/mgo.v2"
+      // "gopkg.in/mgo.v2/bson"
 )
 
 type Song struct {
