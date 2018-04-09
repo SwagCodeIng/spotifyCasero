@@ -8,6 +8,7 @@ import (
       "io"
       "github.com/mewkiz/flac"
       "encoding/json"
+      "strconv"
 )
 
 type songHeader struct {
@@ -20,6 +21,12 @@ type songResponse struct {
   Frame int
   SubFrame int
   Frequencies []int32
+}
+
+type songFrame struct {
+  Frame int
+  LeftAudioChannel []int32
+  RightAudioChannel []int32
 }
 
 func getHeader(name string) string{
@@ -54,8 +61,60 @@ func getHeader(name string) string{
   return string(data)
 }//end getHeader()
 
-func returnSong(w http.ResponseWriter, r *http.Request, p httprouter.Params){
-  songURI := "flacFiles/" + p.ByName("name") + ".flac"
+func getFrame(w http.ResponseWriter, r *http.Request, params httprouter.Params){
+  songURI := "flacFiles/" + params.ByName("name") + ".flac"
+  var lac []int32
+  var rac []int32
+
+  stream, err := flac.Open(songURI)
+  if err != nil{
+    log.Fatal(err)
+  }
+  defer stream.Close()
+  fmt.Print(params.ByName("frameNumber"))
+
+  for{
+    frame, err := stream.ParseNext()
+    if err != nil{
+      if err == io.EOF {
+        break
+      }//end if
+      log.Fatal(err)
+    }//end if
+    frameNumber := params.ByName("frameNumber")
+    // fmt.Print(frameNumber)
+    if strconv.Itoa(int(frame.Num)) == frameNumber  {
+      // fmt.Printf("frame %d\n", frame.Num)
+
+      for i, subframe := range frame.Subframes{
+        if i == 0{
+          lac = subframe.Samples
+        }//end if
+        if i == 1 {
+          rac = subframe.Samples
+        }//end if
+      }//end for
+
+      frameResponse := &songFrame{
+          Frame: int(frame.Num),
+          LeftAudioChannel: lac,
+          RightAudioChannel: rac}
+      // fResponse, _  := json.Marshal(frameResponse)
+      // fmt.Print(string(fResponse))
+      data, err := json.Marshal(frameResponse)
+      if err != nil {
+          fmt.Println(err)
+          return
+      }
+      fmt.Fprint(w, string(data))
+    }//end if
+  }//end for
+
+}//end getFrame()
+
+
+func returnSong(w http.ResponseWriter, r *http.Request, params httprouter.Params){
+  songURI := "flacFiles/" + params.ByName("name") + ".flac"
 
   stream, err := flac.Open(songURI)
   if err != nil{
@@ -103,8 +162,9 @@ func identify(w http.ResponseWriter, r *http.Request, p httprouter.Params){
 
 func main() {
   router := httprouter.New()
-  router.GET("/get-song/:name", returnSong)
-  router.GET("/start-song/:name/:id", identify)
+  router.GET("/get-song/:name/", returnSong)
+  router.GET("/get-header/:name/:id", identify)
+  router.GET("/get-frame/:name/:frameNumber", getFrame)
 
   log.Fatal(http.ListenAndServe(":8000", router))
 }
