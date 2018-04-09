@@ -11,13 +11,15 @@ import (
   "encoding/json"
 )
 
-type songResponse struct {
+type songFrame struct {
   Frame int
-  SubFrame int
-  Frequencies []int32
+  LeftAudioChannel []int32
+  RightAudioChannel []int32
 }
 
 func main(){
+  var lac []int32
+  var rac []int32
   stream, err := flac.Open("flacFiles/stairway-to-heaven.flac")
   if err != nil{
     log.Fatal(err)
@@ -37,17 +39,26 @@ func main(){
         }//end if
         log.Fatal(err)
       }//end if
-      // if frame.Num <1 {
+      if frame.Num <1 {
         fmt.Printf("frame %d\n", frame.Num)
+
         for i, subframe := range frame.Subframes{
-        sResponse := &songResponse{
-            Frame: int(frame.Num),
-            SubFrame: i,
-            Frequencies: subframe.Samples}
-        fResponse, _  := json.Marshal(sResponse)
-        fmt.Print(string(fResponse))
+          if i == 0{
+            lac = subframe.Samples
+          }
+          if i == 1 {
+            rac = subframe.Samples
+          }
         }//end for
-      //}//end if
+
+        frameResponse := &songFrame{
+            Frame: int(frame.Num),
+            LeftAudioChannel: lac,
+            RightAudioChannel: rac}
+        fResponse, _  := json.Marshal(frameResponse)
+        fmt.Print(string(fResponse))
+
+      }//end if
     }//end for
   fmt.Println()
 
